@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>Administrator</title>
+    
+    <!--[if lte IE 8]>
+	<link rel="stylesheet" href="/css/ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="/css/style.css">
+    <!--<![endif]-->
+        
+    <!--[if lt IE 9]>
+        <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+    
+  </head>
+  <body>
+    
+    <div id="layout">
+      <!-- Menu toggle -->
+      <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+      </a>
+      
+      <div id="menu">
+        <div class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading" href="#">Menu</a>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li class="menu-item-divided pure-menu-selected">
+              <a href="#">News</a>
+            </li>
+            <li><a href="#">Contact</a></li>
+	    
+          </ul>
+        </div>
+      </div>
+      
+      <div id="main">
+        <div class="header">
+	  <div id="om-notifier"></div>
+          <h3>Administrator</h3>
+        </div>
+	
+        <div class="content">
+
+         
+        </div>
+      </div>
+    </div>
+    <script src="/js/ui.js"></script>
+
+    {% script "/js/admin-main.js"%}
+</body>
+</html>

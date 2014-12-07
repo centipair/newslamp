@@ -2,7 +2,7 @@
   (:require [compojure.core :refer :all]
             [centipair.layout :as layout]
             [centipair.util :as util]
-            [environ.core :refer [env])))
+            [environ.core :refer [env]]))
 
 (defn home-page []
   (layout/render

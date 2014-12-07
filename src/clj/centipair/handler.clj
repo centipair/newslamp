@@ -1,6 +1,7 @@
 (ns centipair.handler
   (:require [compojure.core :refer [defroutes]]
             [centipair.news.routes :refer [news-routes]]
+            [centipair.core.admin.routes :refer [admin-routes]]
             [centipair.middleware :refer [load-middleware]]
             [centipair.session-manager :as session-manager]
             [noir.response :refer [redirect]]
@@ -63,7 +64,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [news-routes base-routes]
+           [admin-routes news-routes base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
            :ring-defaults (mk-defaults false)

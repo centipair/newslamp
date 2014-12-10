@@ -90,6 +90,39 @@
                             
                             }}
                 {;; CLJS source code path
+                 :id "release-admin"
+                 :source-paths ["src/cljs-admin"]
+                 
+                 ;; Google Closure (CLS) options configuration
+                 :compiler {;; CLS generated JS script filename
+                            :output-to "resources/public/js/admin-main.js"
+                            
+                            ;; minimal JS optimization directive
+                            ;;:optimizations :whitespace
+                            :optimizations :advanced
+                            ;; generated JS code prettyfication
+                            ;;:pretty-print true
+                            :pretty-print false
+                            :preamble ["reagent/react.js"]
+                            :externs ["react/externs/react.js"]
+                            }}
+                {;; CLJS source code path
+                 :id "dev-admin"
+                 :source-paths ["src/cljs-admin"]
+                 
+                 ;; Google Closure (CLS) options configuration
+                 :compiler {;; CLS generated JS script filename
+                            :output-to "resources/public/js/admin-main.js"
+                            
+                            ;; minimal JS optimization directive
+                            :optimizations :whitespace
+                            ;; generated JS code prettyfication
+                            :pretty-print true
+                            :preamble ["reagent/react.js"]
+                            
+                            }}
+
+                {;; CLJS source code path
                  :id "release-mobile"
                  :source-paths ["src/cljs-mobile"]
                  

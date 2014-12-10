@@ -55,11 +55,6 @@
   (js/console.log "Settings"))
 
 
-(defn ^:export init-admin []
-  (do 
-    (render-admin-menu)))
-
-
 (let [h (History.)]
   (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))

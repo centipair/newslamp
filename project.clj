@@ -38,8 +38,7 @@
             [lein-environ "1.0.0"]
             [lein-ancient "0.5.5"]
             [lein-cljsbuild "1.0.3"]
-            [lein-asset-minifier "0.2.0"]
-            ]
+            [lein-asset-minifier "0.2.0"]]
   :ring {:handler centipair.handler/app
          :init    centipair.handler/init
          :destroy centipair.handler/destroy}

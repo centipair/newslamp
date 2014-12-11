@@ -4,11 +4,12 @@
 
 
 
-(def create-box-inputs (atom [{:id "box-name" :type "text" :label "Box Name"}
-                              {:id "box-description" :type "text" :label "Box Description"}]))
+
+(def box-name (atom {:id "box-name" :type "text" :label "Box Name"}))
+(def box-description (atom {:id "box-description" :type "text" :label "Box Description" }))
 
 (defn create-box-form []
-  (input/form-aligned "Create box" create-box-inputs))
+  (input/form-aligned "Create box" [box-name box-description]))
 
 
 (defn render-box-form []

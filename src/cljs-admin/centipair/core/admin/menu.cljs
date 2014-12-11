@@ -33,7 +33,7 @@
 (defn menu-component [com-data]
   [:ul
    (map 
-    (fn [each] 
+    (fn [each]
       [:li  {:key (:id each) :class (if (:active each) "menu-item-divided pure-menu-selected" "")} 
        [:a {:href (str "#" (:url each)) :key (:id each)} (:label each)]]) 
     @com-data)])

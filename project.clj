@@ -95,9 +95,7 @@
                  ;; Google Closure (CLS) options configuration
                  :compiler {;; CLS generated JS script filename
                             :output-to "resources/public/js/admin-main.js"
-                            
                             ;; minimal JS optimization directive
-                            ;;:optimizations :whitespace
                             :optimizations :advanced
                             ;; generated JS code prettyfication
                             ;;:pretty-print true

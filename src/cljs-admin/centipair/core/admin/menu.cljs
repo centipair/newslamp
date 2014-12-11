@@ -1,5 +1,6 @@
 (ns centipair.core.admin.menu
   (:require [reagent.core :as reagent :refer [atom]]
+            [centipair.box.forms :as box-form]
             [secretary.core :as secretary :include-macros true :refer [defroute]]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
@@ -7,7 +8,9 @@
 
 
 (def admin-menu (atom [{:label "Dashboard" :url "/dashboard" :id "dashboard" :active true}
-                       {:label "Settings" :url "/settings" :id "settings" :active false}]))
+                       {:label "Settings" :url "/settings" :id "settings" :active false}
+                       {:label "Box" :url "/box" :id "box" :active false}
+                       ]))
 
 
 (defn title-component [id]
@@ -50,9 +53,14 @@
   (js/console.log "Dashboard"))
 
 
-(defroute dashboard "/settings" []
+(defroute settings "/settings" []
   (activate-side-menu-item "settings")
   (js/console.log "Settings"))
+
+
+(defroute box "/box" []
+  (activate-side-menu-item "box")
+  (box-form/render-box-form))
 
 
 (let [h (History.)]

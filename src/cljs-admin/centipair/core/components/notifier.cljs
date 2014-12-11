@@ -9,7 +9,7 @@
   )
 
 (defn render-notifier-component []
-  (reagent/render-component 
+  (reagent/render
    [notifier-component]
    (. js/document (getElementById "notifier"))))
 

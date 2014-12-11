@@ -14,7 +14,7 @@
 
 
 (defn title-component [id]
-  (reagent/render-component
+  (reagent/render
    [:h3 (:label (first (filter (fn [each] (= (:id each) id)) @admin-menu)))]
    (. js/document (getElementById "admin-title"))))
 
@@ -44,7 +44,7 @@
 
 
 (defn render-admin-menu []
-  (reagent/render-component [admin-menu-component]
+  (reagent/render [admin-menu-component]
                             (. js/document (getElementById "admin-menu"))))
 
 

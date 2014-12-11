@@ -13,6 +13,6 @@
 
 
 (defn render-box-form []
-  (reagent/render-component 
+  (reagent/render
    [create-box-form] 
    (. js/document (getElementById "content"))))

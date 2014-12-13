@@ -1,12 +1,8 @@
 (ns centipair.core.components.input
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [centipair.core.style :as style]))
 
 
-(def input-container-class "pure-control-group")
-(def input-container-class-error "pure-control-group validation-error")
-
-(def disabled-primary-button-class "pure-button pure-button-primary pure-button-disabled")
-(def primary-button-class "pure-button pure-button-primary")
 
 (def form-error (atom ""))
 
@@ -21,7 +17,7 @@
 
 (defn text
   [form-fields field]
-  [:div {:class (if (nil? (:class-name @field)) input-container-class (:class-name @field))}
+  [:div {:class (if (nil? (:class-name @field)) style/input-container-class (:class-name @field))}
    [:label {:for (:id @field)} (:label @field)]
    [:input {:type (:type @field) :id (:id @field)
             :placeholder
@@ -31,23 +27,26 @@
             :value (:value @field)
             :on-change #(update-value  form-fields field (-> % .-target .-value) )
             }]
-   [:label (if (nil? (:message @field))
+   [:span (if (nil? (:message @field))
              ""
              (:message @field))]])
+
+
+(defn make-valid
+  [field]
+  (swap! field assoc :message "" :class-name style/input-container-class)
+  true)
 
 
 (defn valid-field? [field]
   (if (nil? (:validator @field))
     true
-    (let [result ((:validator @field) (:value field))]
+    (let [result ((:validator @field) (:value @field))]
       (if (:valid result)
-        true
+        (make-valid field)
         (do
-          (swap! field assoc :message (:message result) :class-name input-container-class-error)
-          false
-          )
-        )
-      )))
+          (swap! field assoc :message (:message result) :class-name style/input-container-class-error)
+          false)))))
 
 
 (defn valid-form? [form-fields]
@@ -61,7 +60,7 @@
 
 (defn button
   [form-fields action-button]
-  [:button {:class primary-button-class
+  [:a {:class style/primary-button-class
             :on-click #(perform-action (:on-click @action-button) form-fields)
             :disabled ""
             } 

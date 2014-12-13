@@ -1,12 +1,11 @@
 (ns centipair.box.forms
   (:require [centipair.core.components.input :as input]
+            [centipair.core.utilities.validators :as v]
             [reagent.core :as reagent :refer [atom]]))
 
 
-(defn box-name-validator [] {:valid false :message "This field is wrong"})
-
-(def box-name (atom {:id "box-name" :type "email" :label "Box Name" :validator box-name-validator} ))
-(def box-description (atom {:id "box-description" :type "text" :label "Box Description" }))
+(def box-name (atom {:id "box-name" :type "text" :label "Box Name" :validator v/required} ))
+(def box-description (atom {:id "box-description" :type "text" :label "Box Description" :validator v/required}))
 
 (defn save-box []
   (.log js/console (clj->js @box-name))

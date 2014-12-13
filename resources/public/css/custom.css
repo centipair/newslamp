@@ -52,8 +52,9 @@
     font-weight: bold;
 }
 
-.validation-error label {
+.validation-error span {
     color:#dd1037!important;
+    padding-left : 10px;
 }
 .validation-error input{
     border-color:#dd1037!important;

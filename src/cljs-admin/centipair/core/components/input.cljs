@@ -3,14 +3,25 @@
 
 
 (def input-container-class "pure-control-group")
+(def input-container-class-error "pure-control-group validation-error")
 
+(def disabled-primary-button-class "pure-button pure-button-primary pure-button-disabled")
+(def primary-button-class "pure-button pure-button-primary")
 
-(defn update-value [field value]
+(def form-error (atom ""))
+
+(defn update-value [form-fields field value]
   (reset! field (assoc @field :value value)))
 
+
+(defn button-state [form-fields button]
+  
+  )
+
+
 (defn text
-  [field]
-  [:div {:class input-container-class} 
+  [form-fields field]
+  [:div {:class (if (nil? (:class-name @field)) input-container-class (:class-name @field))}
    [:label {:for (:id @field)} (:label @field)]
    [:input {:type (:type @field) :id (:id @field)
             :placeholder
@@ -18,37 +29,65 @@
               ""
               (:placeholder @field))
             :value (:value @field)
-            :on-change #(update-value  field (-> % .-target .-value) )
-             }]
+            :on-change #(update-value  form-fields field (-> % .-target .-value) )
+            }]
    [:label (if (nil? (:message @field))
              ""
              (:message @field))]])
 
+
+(defn valid-field? [field]
+  (if (nil? (:validator @field))
+    true
+    (let [result ((:validator @field) (:value field))]
+      (if (:valid result)
+        true
+        (do
+          (swap! field assoc :message (:message result) :class-name input-container-class-error)
+          false
+          )
+        )
+      )))
+
+
+(defn valid-form? [form-fields]
+  (apply = true (map valid-field? form-fields)))
+
+
+(defn perform-action [action form-fields]
+  (if (valid-form? form-fields)
+    (action)
+    (reset! form-error "Form error!")))
+
+(defn button
+  [form-fields action-button]
+  [:button {:class primary-button-class
+            :on-click #(perform-action (:on-click @action-button) form-fields)
+            :disabled ""
+            } 
+   (:label @action-button)])
+
 (defn checkbox
-  [field]
+  [form-fields field]
   )
 
 (defn radio
-  [field]
+  [form-fields field]
   
   )
 
-(defn input-field [field]
+(defn input-field [form-fields field]
   (case (:type @field)
-    "text" (text field)
-    "email" (text field)
-    "checkbox" (checkbox field)
-    "radio" (radio field)
-    
-    )
-  )
+    "text" (text form-fields field)
+    "email" (text form-fields field)
+    "checkbox" (checkbox form-fields field)
+    "radio" (radio form-fields field)))
 
 
-(defn form-aligned [title form-fields]
+(defn form-aligned [title form-fields action-button]
   [:form {:class "pure-form pure-form-aligned"}
    [:fieldset
-    [:legend [:h3 title]]
-    (doall (map input-field form-fields))
-    ]
-   ]
-  )
+    [:legend [:h3 title] [:span @form-error]]
+    (doall (map (partial input-field form-fields) form-fields))
+    [:div {:class "pure-controls"} (button form-fields action-button)]]])
+

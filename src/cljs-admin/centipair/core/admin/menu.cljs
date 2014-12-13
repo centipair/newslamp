@@ -7,10 +7,9 @@
   (:import goog.History))
 
 
-(def admin-menu (atom [{:label "Dashboard" :url "/dashboard" :id "dashboard" :active true}
+(def admin-menu (atom [{:label "Dashboard" :url "/dashboard" :id "dashboard" :active false}
                        {:label "Settings" :url "/settings" :id "settings" :active false}
-                       {:label "Box" :url "/box" :id "box" :active false}
-                       ]))
+                       {:label "Box" :url "/box" :id "box" :active false}]))
 
 
 (defn title-component [id]

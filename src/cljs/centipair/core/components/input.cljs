@@ -79,6 +79,7 @@
   (case (:type @field)
     "text" (text form-fields field)
     "email" (text form-fields field)
+    "password" (text form-fields field)
     "checkbox" (checkbox form-fields field)
     "radio" (radio form-fields field)))
 

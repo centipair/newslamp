@@ -85,7 +85,7 @@
                             :optimizations :whitespace
                             ;; generated JS code prettyfication
                             :pretty-print true
-                            
+                            :preamble ["reagent/react.js"]
                             
                             }}
                 {;; CLJS source code path

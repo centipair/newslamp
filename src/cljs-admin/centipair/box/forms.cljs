@@ -1,6 +1,7 @@
 (ns centipair.box.forms
   (:require [centipair.core.components.input :as input]
             [centipair.core.utilities.validators :as v]
+            [centipair.core.ui :as ui]
             [reagent.core :as reagent :refer [atom]]))
 
 
@@ -19,6 +20,4 @@
 
 
 (defn render-box-form []
-  (reagent/render
-   [create-box-form] 
-   (. js/document (getElementById "content"))))
+  (ui/render create-box-form "content"))

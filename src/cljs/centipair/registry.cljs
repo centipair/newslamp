@@ -1,11 +1,9 @@
 (ns centipair.registry
-  (:require [centipair.user :as user]
-            [centipair.admin.menu :as menu])
-  )
+  (:require [centipair.core.user.forms :as user-forms]
+            ))
 
 
-(def function-registry {:render-register-form user/render-register-form
-                        :render-admin-side-menu menu/render-side-menu})
+(def function-registry {:render-register-form user-forms/render-register-form})
 
 
 

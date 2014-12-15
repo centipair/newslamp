@@ -162,4 +162,5 @@
      "resources/public/css/ie.css" ["resources/public/css/pure-min.css"
                                     "resources/public/css/ie/grids-responsive-old-ie-min.css"
                                     "resources/public/css/ie/side-menu-old-ie.css"
-                                    "resources/public/css/custom.css"]}})
+                                    "resources/public/css/custom.css"]
+     "resources/public/js/main.min.js" "resources/public/js/main.js"}})

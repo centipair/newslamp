@@ -9,7 +9,7 @@
      clojurewerkz.cassaforte.uuids
      [centipair.core.utilities.validators :only [is-username? is-email-proxy?]])
     (:require 
-     [centipair.core.cryptography :as crypto]))
+     [centipair.core.utilities.cryptography :as crypto]))
 
 
 (def early-access-table "early_access")

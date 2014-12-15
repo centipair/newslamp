@@ -1,4 +1,4 @@
-(ns centipair.core.utils
+(ns centipair.core.utilities.dom
   (:require [goog.dom :as gdom]))
 
 (defn get-value

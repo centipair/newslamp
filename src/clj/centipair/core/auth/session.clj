@@ -1,6 +1,6 @@
 (ns centipair.core.auth.session
   (:require
-   [centipair.core.cryptography :as cryptography]
+   [centipair.core.utilities.cryptography :as cryptography]
    [centipair.core.utilities.time :as time]
    [noir.session :as session]
    [noir.cookies :as cookies]))

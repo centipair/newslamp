@@ -1,4 +1,4 @@
-(ns centipair.core.admin.menu
+(ns centipair.admin.menu
   (:require [reagent.core :as reagent :refer [atom]]
             [centipair.box.forms :as box-form]
             [secretary.core :as secretary :include-macros true :refer [defroute]]

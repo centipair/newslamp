@@ -1,5 +1,5 @@
-(ns centipair.core.admin.init
-  (:require [centipair.core.admin.menu :as admin-menu]
+(ns centipair.admin.init
+  (:require [centipair.admin.menu :as admin-menu]
             [centipair.core.components.notifier :as notifier]))
 
 

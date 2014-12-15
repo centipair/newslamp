@@ -1,4 +1,4 @@
-(ns centipair.core.cryptography
+(ns centipair.core.utilities.cryptography
   (:require
    [noir.util.crypt :as crypt]
    [crypto.random :as random]))

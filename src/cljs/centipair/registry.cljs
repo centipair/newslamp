@@ -3,7 +3,8 @@
             ))
 
 
-(def function-registry {:render-register-form user-forms/render-register-form})
+(def function-registry {:render-register-form user-forms/render-register-form
+                        :render-login-form user-forms/render-login-form})
 
 
 

@@ -1,7 +1,7 @@
 (ns centipair.core.ajax
   (:require [ajax.core :refer [GET POST json-request-format edn-request-format]]
             [centipair.core.utilities.dom :as dom])
-  (:use [centipair.core.components.notify :only [notify]]))
+  (:use [centipair.core.components.notifier :only [notify]]))
 
 
 (defn error-handler [response]

@@ -31,13 +31,17 @@
           <li><a href="/register">Sign Up</a></li>
         </ul>
       </div>
+      <div id="notifier"></div>
     </div>
     <div class="content">
       {% block content %}
       {% endblock %}
     </div>
 
-    {% script "/js/main.min.js"%}
+    {% script "/js/main.js"%}
+    <script>
+      centipair.init.init_app();
+    </script>
     {% block page-scripts %}
     {% endblock %}
 </body>

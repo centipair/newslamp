@@ -4,8 +4,6 @@
 
 
 
-(def form-error (atom ""))
-
 (defn update-value [form-fields field value]
   (reset! field (assoc @field :value value)))
 
@@ -53,15 +51,17 @@
   (apply = true (map valid-field? form-fields)))
 
 
-(defn perform-action [action form-fields]
+(defn perform-action [form action form-fields]
   (if (valid-form? form-fields)
-    (action)
-    (reset! form-error "Form error!")))
+    (do
+      (swap! form assoc :error "")
+      (action))
+    (swap! form assoc :error "Form error!")))
 
 (defn button
-  [form-fields action-button]
+  [form form-fields action-button]
   [:a {:class style/primary-button-class
-            :on-click #(perform-action (:on-click @action-button) form-fields)
+            :on-click #(perform-action form (:on-click @action-button) form-fields)
             :disabled ""
             } 
    (:label @action-button)])
@@ -84,10 +84,10 @@
     "radio" (radio form-fields field)))
 
 
-(defn form-aligned [title form-fields action-button]
+(defn form-aligned [form form-fields action-button]
   [:form {:class "pure-form pure-form-aligned"}
    [:fieldset
-    [:legend [:h3 title] [:span @form-error]]
+    [:legend [:h3 (:title @form)] [:span {:class "form-error"} (:error @form)]]
     (doall (map (partial input-field form-fields) form-fields))
-    [:div {:class "pure-controls"} (button form-fields action-button)]]])
+    [:div {:class "pure-controls"} (button form form-fields action-button)]]])
 

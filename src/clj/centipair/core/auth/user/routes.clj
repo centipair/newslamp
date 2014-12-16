@@ -11,6 +11,9 @@
 (defn register-page []
   (layout/render "core/user/register.html"))
 
+(defn login-page []
+  (layout/render "core/user/login.html"))
+
 
 (defn register-submit [request]
   (send-response (user-registration-form (:params request))))
@@ -25,5 +28,6 @@
 
 (defroutes user-routes 
   (GET "/register" [] (register-page))
+  (GET "/login" [] (login-page))
   (POST "/register-submit" request (register-submit request))
   (GET "/activate/:key" [key] (activate key)))

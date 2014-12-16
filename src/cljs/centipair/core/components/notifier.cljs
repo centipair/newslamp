@@ -25,5 +25,4 @@
       500 (reset! notifier-state {:class "notify notify-error" :text "Internal server error"})
       422 (reset! notifier-state {:class "notify notify-error" :text invalid-data-message})
       (reset! notifier-state {:class "notify" :text ""}))
-    (.log js/console (clj->js @notifier-state))
-    ))
+    (.log js/console (clj->js @notifier-state))))

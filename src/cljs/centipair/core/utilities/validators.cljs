@@ -57,3 +57,12 @@
   (if (has-value? value)
     (validation-success)
     (validation-error required-field-error)))
+
+
+(defn email-required [value]
+  (if (has-value? value)
+    (if (is-email? value)
+      (validation-success)
+      (validation-error email-field-error)
+      )
+    (validation-error required-field-error)))

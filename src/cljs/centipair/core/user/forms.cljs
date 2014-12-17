@@ -9,7 +9,7 @@
 (def registration-form-state (atom {:title "Sign Up" :action "/register-submit"}))
 (def email (atom {:id "email" :type "email" :label "Email" :validator v/email-required} ))
 (def password (atom {:id "password" :type "password" :label "Password" :validator v/required}))
-
+(def accept-terms (atom {:id "box-terms" :type "checkbox" :label " I've read the terms and conditions" :value true}))
 
 (defn password-required-match [value]
   (if (v/has-value? value)
@@ -28,7 +28,10 @@
 (def register-submit-button (atom {:label "Submit" :on-click register-submit}))
 
 (defn registration-form []
-  (input/form-aligned  registration-form-state [email password confirm-password] register-submit-button))
+  (input/form-aligned  
+   registration-form-state
+   [email password confirm-password accept-terms]
+   register-submit-button))
 
 
 (defn render-register-form []

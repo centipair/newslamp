@@ -68,7 +68,15 @@
 
 (defn checkbox
   [field]
-  )
+  [:div {:class (if (nil? (:class-name @field)) style/input-container-control (:class-name @field))}
+   [:label {:for (:id @field)}
+    [:input {:type (:type @field) :id (:id @field)
+             :value (:value @field)
+             :on-change #(update-value field (-> % .-target .-value) )
+             }] (:label @field)] 
+   [:span (if (nil? (:message @field))
+             ""
+             (:message @field))]])
 
 (defn radio
   [field]

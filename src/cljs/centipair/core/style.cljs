@@ -1,5 +1,8 @@
 (ns centipair.core.style)
 
+(def input-container-control "pure-controls")
+(def input-container-control-class-error "pure-controls validation-error")
+
 (def input-container-class "pure-control-group")
 (def input-container-class-error "pure-control-group validation-error")
 

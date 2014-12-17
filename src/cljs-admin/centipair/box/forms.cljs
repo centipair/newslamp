@@ -8,6 +8,8 @@
 (def box-name (atom {:id "box-name" :type "text" :label "Box Name" :validator v/required} ))
 (def box-description (atom {:id "box-description" :type "text" :label "Box Description" :validator v/required}))
 
+(def box-form (atom {:title "Create Box"}))
+
 (defn save-box []
   (.log js/console (clj->js @box-name))
   (.log js/console (clj->js @box-description)))
@@ -16,7 +18,7 @@
 
 
 (defn create-box-form []
-  (input/form-aligned "Create box" [box-name box-description] save-box-button))
+  (input/form-aligned box-form [box-name box-description] save-box-button))
 
 
 (defn render-box-form []

@@ -4,7 +4,7 @@
 
 
 
-(defn update-value [form-fields field value]
+(defn update-value [field value]
   (reset! field (assoc @field :value value)))
 
 
@@ -14,7 +14,7 @@
 
 
 (defn text
-  [form-fields field]
+  [field]
   [:div {:class (if (nil? (:class-name @field)) style/input-container-class (:class-name @field))}
    [:label {:for (:id @field)} (:label @field)]
    [:input {:type (:type @field) :id (:id @field)
@@ -23,7 +23,7 @@
               ""
               (:placeholder @field))
             :value (:value @field)
-            :on-change #(update-value  form-fields field (-> % .-target .-value) )
+            :on-change #(update-value field (-> % .-target .-value) )
             }]
    [:span (if (nil? (:message @field))
              ""
@@ -67,27 +67,27 @@
    (:label @action-button)])
 
 (defn checkbox
-  [form-fields field]
+  [field]
   )
 
 (defn radio
-  [form-fields field]
+  [field]
   
   )
 
-(defn input-field [form-fields field]
+(defn input-field [field]
   (case (:type @field)
-    "text" (text form-fields field)
-    "email" (text form-fields field)
-    "password" (text form-fields field)
-    "checkbox" (checkbox form-fields field)
-    "radio" (radio form-fields field)))
+    "text" (text field)
+    "email" (text field)
+    "password" (text field)
+    "checkbox" (checkbox field)
+    "radio" (radio field)))
 
 
 (defn form-aligned [form form-fields action-button]
   [:form {:class "pure-form pure-form-aligned"}
    [:fieldset
     [:legend [:h3 (:title @form)] [:span {:class "form-error"} (:error @form)]]
-    (doall (map (partial input-field form-fields) form-fields))
+    (doall (map input-field form-fields))
     [:div {:class "pure-controls"} (button form form-fields action-button)]]])
 

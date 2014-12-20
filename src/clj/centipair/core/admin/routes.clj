@@ -10,7 +10,7 @@
 
 (defn admin-home []
   (layout/render
-    "admin/admin.html" ))
+    "admin/admin-bootstrap.html" ))
 
 
 (defn admin-settings []

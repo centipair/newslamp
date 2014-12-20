@@ -15,24 +15,26 @@
 
 (defn text
   [field]
-  [:div {:class (if (nil? (:class-name @field)) style/input-container-class (:class-name @field))}
-   [:label {:for (:id @field)} (:label @field)]
-   [:input {:type (:type @field) :id (:id @field)
-            :placeholder
-            (if (nil? (:placeholder @field))
-              ""
-              (:placeholder @field))
-            :value (:value @field)
-            :on-change #(update-value field (-> % .-target .-value) )
-            }]
-   [:span (if (nil? (:message @field))
+  [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field))}
+   [:label {:for (:id @field) :class "col-sm-2 control-label"} (:label @field)]
+   [:div {:class "col-sm-6"}
+    [:input {:class "form-control"
+             :type (:type @field) :id (:id @field)
+             :placeholder
+             (if (nil? (:placeholder @field))
+               ""
+               (:placeholder @field))
+             :value (:value @field)
+             :on-change #(update-value field (-> % .-target .-value) )
+             }]]
+   [:label {:class "col-sm-4 message-label"} (if (nil? (:message @field))
              ""
              (:message @field))]])
 
 
 (defn make-valid
   [field]
-  (swap! field assoc :message "" :class-name style/input-container-class)
+  (swap! field assoc :message "" :class-name style/bootstrap-input-container-class)
   true)
 
 
@@ -43,7 +45,9 @@
       (if (:valid result)
         (make-valid field)
         (do
-          (swap! field assoc :message (:message result) :class-name style/input-container-class-error)
+          (swap! field assoc
+                 :message (:message result)
+                 :class-name style/bootstrap-input-container-class-error)
           false)))))
 
 
@@ -60,20 +64,25 @@
 
 (defn button
   [form form-fields action-button]
-  [:a {:class style/primary-button-class
-            :on-click #(perform-action form (:on-click @action-button) form-fields)
-            :disabled ""
-            } 
-   (:label @action-button)])
+  [:div {:class style/bootstrap-input-container-class}
+   [:div {:class "col-sm-offset-2 col-sm-10"}
+    [:a {:class style/bootstrap-primary-button-class
+         :on-click #(perform-action form (:on-click @action-button) form-fields)
+         :disabled ""
+         } 
+     (:label @action-button)]]])
 
 (defn checkbox
   [field]
-  [:div {:class (if (nil? (:class-name @field)) style/input-container-control (:class-name @field))}
-   [:label {:for (:id @field)}
-    [:input {:type (:type @field) :id (:id @field)
-             :value (:value @field)
-             :on-change #(update-value field (-> % .-target .-value) )
-             }] (:label @field)] 
+  [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field))}
+   
+   [:div {:class "col-sm-offset-2 col-sm-10"}
+    [:div {:class "checkbox"}
+     [:label
+      [:input {:type (:type @field) :id (:id @field)
+               :value (:value @field)
+               :on-change #(update-value field (-> % .-target .-value) )
+               }] (:label @field)]]]
    [:span (if (nil? (:message @field))
              ""
              (:message @field))]])
@@ -93,9 +102,9 @@
 
 
 (defn form-aligned [form form-fields action-button]
-  [:form {:class "pure-form pure-form-aligned"}
-   [:fieldset
+  [:form {:class "form-horizontal"}
+
     [:legend [:h3 (:title @form)] [:span {:class "form-error"} (:error @form)]]
     (doall (map input-field form-fields))
-    [:div {:class "pure-controls"} (button form form-fields action-button)]]])
+    [:div {:class "pure-controls"} (button form form-fields action-button)]])
 

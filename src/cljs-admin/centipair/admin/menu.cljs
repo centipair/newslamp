@@ -30,10 +30,10 @@
 
 
 (defn menu-component [com-data]
-  [:ul
+  [:ul {:class "nav nav-sidebar"}
    (map 
     (fn [each]
-      [:li  {:key (:id each) :class (if (:active each) "menu-item-divided pure-menu-selected" "")} 
+      [:li  {:key (:id each) :class (if (:active each) "active" "")} 
        [:a {:href (str "#" (:url each)) :key (:id each)} (:label each)]]) 
     @com-data)])
 

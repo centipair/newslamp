@@ -7,7 +7,7 @@
 
 (def box-name (atom {:id "box-name" :type "text" :label "Box Name" :validator v/required} ))
 (def box-description (atom {:id "box-description" :type "text" :label "Box Description" :validator v/required}))
-(def accept-box-terms (atom {:id "box-terms" :type "checkbox" :label " I've read the terms and conditions" :value true}))
+(def accept-box-terms (atom {:id "box-terms" :type "checkbox" :label " I've read the terms and conditions" :validator v/agree-terms}))
 
 (def box-form (atom {:title "Create Box"}))
 

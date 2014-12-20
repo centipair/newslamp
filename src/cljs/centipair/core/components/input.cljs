@@ -7,10 +7,11 @@
 (defn update-value [field value]
   (reset! field (assoc @field :value value)))
 
+(defn update-check [field checked?]
+  (if checked?
+    (reset! field (assoc @field :checked "checked"))
+    (reset! field (assoc @field :checked ""))))
 
-(defn button-state [form-fields button]
-  
-  )
 
 
 (defn text
@@ -41,7 +42,7 @@
 (defn valid-field? [field]
   (if (nil? (:validator @field))
     true
-    (let [result ((:validator @field) (:value @field))]
+    (let [result ((:validator @field) @field)]
       (if (:valid result)
         (make-valid field)
         (do
@@ -52,7 +53,7 @@
 
 
 (defn valid-form? [form-fields]
-  (apply = true (map valid-field? form-fields)))
+  (apply = true (doall (map valid-field? form-fields))))
 
 
 (defn perform-action [form action form-fields]
@@ -75,15 +76,15 @@
 (defn checkbox
   [field]
   [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field))}
-   
-   [:div {:class "col-sm-offset-2 col-sm-10"}
+   [:div {:class "col-sm-offset-2 col-sm-6"}
     [:div {:class "checkbox"}
      [:label
       [:input {:type (:type @field) :id (:id @field)
                :value (:value @field)
-               :on-change #(update-value field (-> % .-target .-value) )
+               :on-change #(update-check field (-> % .-target .-checked) )
+               :checked (:checked @field)
                }] (:label @field)]]]
-   [:span (if (nil? (:message @field))
+   [:label {:class "col-sm-4 message-label"} (if (nil? (:message @field))
              ""
              (:message @field))]])
 

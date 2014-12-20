@@ -36,34 +36,10 @@
     border-color: #E74C3C;
 }
 
-.nav li a.active {
-    color: #dd4b39;
-    font-weight: bold;
-}
-
-.nav-sidebar li a {
-    color:#333;
-    
-}
-
-
-.nav li.active a {
-    color: #dd4b39;
-    font-weight: bold;
-}
-
-.validation-error span {
-    color:#dd1037!important;
-    padding-left : 10px;
-}
-.validation-error input{
-    border-color:#dd1037!important;
-    
-}
 
 
 .form-error{
-    color:red;
+    color:#dd4b39
 }
 
 .has-error .message-label{

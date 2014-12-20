@@ -1,4 +1,4 @@
-(ns centipair.core.ajax
+(ns centipair.core.utilities.ajax
   (:require [ajax.core :refer [GET POST json-request-format edn-request-format]]
             [centipair.core.utilities.dom :as dom])
   (:use [centipair.core.components.notifier :only [notify]]))
@@ -20,5 +20,5 @@
           :handler function-handler
           :error-handler error-handler
           :format (json-request-format)
-          ;;:headers {:X-CSRF-Token (dom/get-value "csrfmiddlewaretoken")}
+          :headers {:X-CSRF-Token (dom/get-value "__anti-forgery-token")}
           )))

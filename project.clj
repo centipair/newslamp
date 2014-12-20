@@ -7,9 +7,9 @@
                  [reagent "0.5.0-alpha"]
                  [reagent-utils "0.1.0"]
                  [secretary "1.2.0"]
-                 [lib-noir "0.9.4"]
+                 [lib-noir "0.9.5"]
                  [ring-server "0.3.1"]
-                 [selmer "0.7.5"]
+                 [selmer "0.7.7"]
                  [com.taoensso/timbre "3.3.1"]
                  [com.taoensso/tower "3.0.2"]
                  [markdown-clj "0.9.58"

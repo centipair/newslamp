@@ -1,6 +1,6 @@
 (ns centipair.news.routes
   (:require [compojure.core :refer :all]
-            [centipair.layout :as layout]
+            [centipair.core.layout :as layout]
             [centipair.util :as util]
             [environ.core :refer [env]]))
 

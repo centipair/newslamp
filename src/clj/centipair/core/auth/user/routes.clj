@@ -4,7 +4,7 @@
         centipair.core.auth.user.models
         centipair.core.utilities.cryptography)
   (:require [compojure.core :refer :all]
-            [centipair.layout :as layout]
+            [centipair.core.layout :as layout]
             [centipair.util :as util]))
 
 

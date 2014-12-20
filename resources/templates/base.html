@@ -57,5 +57,10 @@
     </script>
     {% block page-scripts %}
     {% endblock %}
+    {{csrfmiddlewaretoken|safe}}
+    <!-- scripts and styles -->
+    <script type="text/javascript">
+      var context = "{{servlet-context}}";
+    </script>
   </body>
 </html>

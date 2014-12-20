@@ -5,7 +5,7 @@
 
 (defn home-page []
   (layout/render
-    "index.html" ))
+    "index.html"))
 
 (defn about-page []
   (layout/render "about.html"))

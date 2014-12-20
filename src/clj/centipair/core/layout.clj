@@ -3,7 +3,8 @@
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]])
+  (:use ring.util.anti-forgery))
 
 (def template-path "templates/")
 
@@ -26,5 +27,6 @@
       "text/html; charset=utf-8")))
 
 (defn render [template & [params]]
-  (RenderableTemplate. template params))
+  (println (anti-forgery-field))
+  (RenderableTemplate. template (assoc params :csrfmiddlewaretoken (anti-forgery-field))))
 

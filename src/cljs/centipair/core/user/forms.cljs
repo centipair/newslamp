@@ -2,6 +2,7 @@
   (:require [centipair.core.components.input :as input]
             [centipair.core.utilities.validators :as v]
             [centipair.core.ui :as ui]
+            [centipair.core.utilities.ajax :as ajax]
             [reagent.core :as reagent :refer [atom]]))
 
 
@@ -21,8 +22,12 @@
 (def confirm-password (atom {:id "confirm-password" :type "password" :label "Confirm Password" :validator password-required-match}))
 
 (defn register-submit []
-  (.log js/console (clj->js @email))
-  (.log js/console (clj->js @password)))
+  (ajax/post "/register-submit"
+             {:email (:value @email)
+              :password (:value @password)
+              :confirm-password (:value @confirm-password)}
+             (fn [response] (.log js.console "yay!!!"))
+             ))
 
 (def register-submit-button (atom {:label "Submit" :on-click register-submit}))
 

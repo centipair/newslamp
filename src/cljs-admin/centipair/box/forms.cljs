@@ -1,6 +1,7 @@
 (ns centipair.box.forms
   (:require [centipair.core.components.input :as input]
             [centipair.core.utilities.validators :as v]
+            [centipair.core.utilities.ajax :as ajax]
             [centipair.core.ui :as ui]
             [reagent.core :as reagent :refer [atom]]))
 

@@ -27,6 +27,5 @@
       "text/html; charset=utf-8")))
 
 (defn render [template & [params]]
-  (println (anti-forgery-field))
   (RenderableTemplate. template (assoc params :csrfmiddlewaretoken (anti-forgery-field))))
 

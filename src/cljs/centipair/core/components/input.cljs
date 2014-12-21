@@ -67,9 +67,9 @@
 (defn perform-action [form action form-fields]
   (if (valid-form? form-fields)
     (do
-      (swap! form assoc :error "")
+      (swap! form assoc :message "")
       (action))
-    (swap! form assoc :error "Form error!")))
+    (swap! form assoc :message "Form error!")))
 
 (defn button
   [form form-fields action-button]
@@ -112,8 +112,6 @@
 
 (defn form-aligned [form form-fields action-button]
   [:form {:class "form-horizontal"}
-
-    [:legend [:h3 (:title @form)] [:span {:class "form-error"} (:error @form)]]
+    [:legend [:h3 (:title @form)] [:span {:class "form-error"} (:message @form)]]
     (doall (map input-field form-fields))
     [:div {:class "pure-controls"} (button form form-fields action-button)]])
-

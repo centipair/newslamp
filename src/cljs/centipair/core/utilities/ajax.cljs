@@ -34,17 +34,18 @@
   (assoc previous (keyword (:id @each)) (:value @each)))
 
 
-(defn handle-form-error [form response]
+(defn handle-form-error [form-state form response]
   (notify 422 "The submitted data is not valid")
-  (doseq [each form]
-    (append-error (:errors (:response response)) each)))
+  (let [combined (conj form form-state)]
+    (doseq [each combined]
+      (append-error (:errors (:response response)) each))))
 
-(defn form-error-handler [form response]
+(defn form-error-handler [form-state form response]
   (let [status (:status response)]
     (case status
       404 (notify 404)
       500 (notify 500)
-      422 (handle-form-error form response))))
+      422 (handle-form-error form-state form response))))
 
 
 (defn form-success-handler []
@@ -52,13 +53,13 @@
   )
 
 
-(defn form-post [url form function-handler]
+(defn form-post [form-state url form function-handler]
   (do
     (notify 102 "Loading")
     (POST url
           :params (reduce to-key {} form)
           :handler (partial success-handler function-handler)
-          :error-handler (partial form-error-handler form)
+          :error-handler (partial form-error-handler form-state form)
           :format (json-request-format)
           :headers {:X-CSRF-Token (dom/get-value "__anti-forgery-token")}
           :response-format (json-response-format {:keywords? true}))))

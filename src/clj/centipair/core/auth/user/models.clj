@@ -22,8 +22,8 @@
 (def user-profile-table "user_profile")
 (def password-reset-table "password_reset")
 
-(def login-error {:status-code 422 :errors {:__all__ "Username or password incorrect"}})
-(def inactive-user-error {:status-code 422 :errors {:__all__ "This account is inactive. Please activate your account."}})
+(def login-error {:status-code 422 :errors {:login-form ["Username or password incorrect"]}})
+(def inactive-user-error {:status-code 422 :errors {:login-form ["This account is inactive. Please activate your account."]}})
 
 
 (defn insert-user-session [session-map]
@@ -42,7 +42,7 @@
       (insert-user-session session-map)
       (set-cookies :auth_token auth_token)
       (set-session :uid auth_token)
-      {:status-code 200 :message "login success" :redirect "/chart2/"})))
+      {:status-code 200 :message "login success" :redirect "/admin"})))
 
 (defn get-user-session []
   (let [auth_token (get-cookies :auth_token)]
@@ -94,7 +94,7 @@
 
 (defn insert-registration-request [user-map]
   (insert (dbcon) user-account-registration-table {:registration_key (:registration_key user-map)
-                                           :user_id (:user_id user-map)}))
+                                                   :user_id (:user_id user-map)}))
 
 
 (defn register-user [user-map]

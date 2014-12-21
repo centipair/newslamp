@@ -7,8 +7,9 @@
 
 
 
-(def registration-form-state (atom {:title "Sign Up" :action "/register-submit"}))
+(def registration-form-state (atom {:title "Sign Up" :action "/register-submit" :id "registration-form"}))
 (def email (atom {:id "email" :type "email" :label "Email" :validator v/email-required} ))
+(def username (atom {:id "username" :type "text" :label "Email" :validator v/required} ))
 (def password (atom {:id "password" :type "password" :label "Password" :validator v/required}))
 (def accept-box-terms (atom {:id "box-terms" :type "checkbox" :label "I've read the terms and conditions" :validator v/agree-terms}))
 
@@ -22,10 +23,12 @@
 (def confirm-password (atom {:id "confirm-password" :type "password" :label "Confirm Password" :validator password-required-match}))
 
 (defn register-submit []
-  (ajax/form-post "/register-submit"
-             [email password confirm-password]
-             (fn [response] (.log js.console "yay!!!"))
-             ))
+  (ajax/form-post
+   registration-form-state
+   "/register-submit"
+   [email password confirm-password]
+   (fn [response] (.log js.console "yay!!!"))
+   ))
 
 (def register-submit-button (atom {:label "Submit" :on-click register-submit}))
 
@@ -41,18 +44,21 @@
   (ui/render registration-form "register-form"))
 
 
-(def login-email (atom {:id "email" :type "email" :label "Email" :validator v/email-required} ))
-(def login-form-state (atom {:title "Login" :action "/login-submit"}))
+(def login-form-state (atom {:title "Login" :action "/login-submit" :id "login-form"}))
 
 
 (defn login-submit []
-  (.log js/console (clj->js @login-email))
-  (.log js/console (clj->js @password)))
+  (ajax/form-post
+   login-form-state
+   "/login-submit"
+   [username password]
+   (fn [response] (.log js.console "login yay!!!"))
+   ))
 
 (def login-submit-button (atom {:label "Submit" :on-click login-submit}))
 
 (defn login-form []
-  (input/form-aligned login-form-state [email password] login-submit-button))
+  (input/form-aligned login-form-state [username password] login-submit-button))
 
 (defn render-login-form []
   (ui/render login-form "login-form"))

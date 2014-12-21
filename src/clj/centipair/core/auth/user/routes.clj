@@ -8,18 +8,32 @@
             [centipair.util :as util]))
 
 
-(defn register-page []
+(defn register-page
+  "Registration Page"
+  []
   (layout/render "core/user/register.html"))
 
-(defn login-page []
+(defn login-page
+  "Login Page"
+  []
   (layout/render "core/user/login.html"))
 
 
-(defn register-submit [request]
+(defn register-submit
+  "Registration submit handler"
+  [request]
   (send-response (user-registration-form (:params request))))
 
 
-(defn activate [registration-key]
+(defn login-submit
+  "Login submit handler"
+  [request]
+  (send-response (user-login-form (:params request))))
+
+
+(defn activate
+  "Account activation handler"
+  [registration-key]
   (let [user-id (activate-account (str-uuid registration-key))]
   (if user-id
     (layout/render "core/user/login.html" {:title "Account activated" :message "Your account has been activated.Please Login"})
@@ -30,4 +44,5 @@
   (GET "/register" [] (register-page))
   (GET "/login" [] (login-page))
   (POST "/register-submit" request (register-submit request))
+  (POST "/login-submit" request (login-submit request))
   (GET "/activate/:key" [key] (activate key)))

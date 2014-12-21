@@ -18,7 +18,7 @@
                  [im.chit/cronj "1.4.3"]
                  [noir-exception "0.2.3"]
                  [prone "0.6.0"]
-                 [clojurewerkz/cassaforte "2.0.0-rc2"]
+                 [clojurewerkz/cassaforte "2.0.0"]
                  [org.immutant/immutant "2.0.0-beta1"]
                  [com.draines/postal "1.11.1"]
                  [liberator "0.12.2"]
@@ -27,7 +27,8 @@
                  [org.clojure/clojurescript "0.0-2322"]
                  [cljs-ajax "0.3.2"]
                  [secretary "1.2.1"]
-                 [enfocus "2.1.1"]]
+                 [enfocus "2.1.1"]
+                 [com.cognitect/transit-cljs "0.8.194"]]
 
   :repl-options {
                  :init-ns centipair.repl

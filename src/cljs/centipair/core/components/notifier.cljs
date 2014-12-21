@@ -24,5 +24,4 @@
       404 (reset! notifier-state {:class "notify notify-error" :text "Not found"})
       500 (reset! notifier-state {:class "notify notify-error" :text "Internal server error"})
       422 (reset! notifier-state {:class "notify notify-error" :text invalid-data-message})
-      (reset! notifier-state {:class "notify" :text ""}))
-    (.log js/console (clj->js @notifier-state))))
+      (reset! notifier-state {:class "notify" :text ""}))))

@@ -8,9 +8,9 @@
 
 
 (def registration-form-state (atom {:title "Sign Up" :action "/register-submit"}))
-(def email (atom {:id "email" :type "email" :label "Email" :validator v/email-required} ))
-(def password (atom {:id "password" :type "password" :label "Password" :validator v/required}))
-(def accept-box-terms (atom {:id "box-terms" :type "checkbox" :label "I've read the terms and conditions" :validator v/agree-terms}))
+(def email (atom {:id "email" :type "email" :label "Email" :validator v/email-required :value "devasiajoseph@gmail.com"} ))
+(def password (atom {:id "password" :type "password" :label "Password" :validator v/required :value "password"}))
+(def accept-box-terms (atom {:id "box-terms" :type "checkbox" :label "I've read the terms and conditions" :validator v/agree-terms :checked "checked"}))
 
 (defn password-required-match [field]
   (if (v/has-value? (:value field))
@@ -19,13 +19,11 @@
       (v/validation-error "Passwords does not match"))
     (v/validation-error v/required-field-error)))
 
-(def confirm-password (atom {:id "confirm-password" :type "password" :label "Confirm Password" :validator password-required-match}))
+(def confirm-password (atom {:id "confirm-password" :type "password" :label "Confirm Password" :validator password-required-match :value "password"}))
 
 (defn register-submit []
-  (ajax/post "/register-submit"
-             {:email (:value @email)
-              :password (:value @password)
-              :confirm-password (:value @confirm-password)}
+  (ajax/form-post "/register-submit"
+             [email password confirm-password]
              (fn [response] (.log js.console "yay!!!"))
              ))
 

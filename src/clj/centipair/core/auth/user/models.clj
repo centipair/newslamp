@@ -30,7 +30,7 @@
   (do
     (insert (dbcon) user-session-table session-map)
     (insert (dbcon) user-session-index-table {:user_id (:user_id session-map)
-                                      :auth_token (:auth_token session-map)})))
+                                              :auth_token (:auth_token session-map)})))
 
 
 (defn create-user-session [user-account]
@@ -48,19 +48,19 @@
   (let [auth_token (get-cookies :auth_token)]
     (if (nil? auth_token)
       nil
-      (first (select (dbcon) user-session-table (where :auth_token auth_token))))))
+      (first (select (dbcon) user-session-table (where [[= :auth_token auth_token]]))))))
 
 (defn session-user-id [] 
   (:user_id (get-user-session)))
 
 (defn delete-session-index [user_session]
   (delete (dbcon) user-session-index-table (where 
-                                         :user_id (:user_id user_session) 
-                                         :auth_token (:auth_token user_session))))
+                                            [[= :user_id (:user_id user_session)]
+                                             [= :auth_token (:auth_token user_session)]])))
 
 (defn delete-session [user_session]
   (do
-    (delete (dbcon) user-session-table (where :auth_token (:auth_token user_session)))
+    (delete (dbcon) user-session-table (where [[= :auth_token (:auth_token user_session)]]))
     (delete-session-index user_session)))
 
 (defn destroy-session []
@@ -70,12 +70,12 @@
       (delete-session user_session))))
 
 (defn select-user-account [user_id]
-  (select (dbcon) user-account-table (where :user_id user_id)))
+  (select (dbcon) user-account-table (where [[= :user_id user_id]])))
 
 
 (defn insert-user-login-username [user-map]
   (insert (dbcon) user-login-username-table {:user_id (:user_id user-map)
-                                          :username (:username user-map)}))
+                                             :username (:username user-map)}))
 
 (defn insert-user-login-email [user-map]
   (insert (dbcon) user-login-email-table {:user_id (:user_id user-map)
@@ -112,11 +112,11 @@
 
 
 (defn select-user-username [username]
-  (first (select (dbcon) user-login-username-table (where :username username))))
+  (first (select (dbcon) user-login-username-table (where [[= :username username]]))))
 
 
 (defn select-user-email [email]
-  (first (select (dbcon) user-login-email-table (where :email email))))
+  (first (select (dbcon) user-login-email-table (where [[= :email email]]))))
 
 (defn get-user-login [username]
   (if (is-username? username)
@@ -147,13 +147,13 @@
 
 
 (defn activate-user-account [user-map]
-  (update (dbcon) user-account-table {:active true} (where :user_id (:user_id user-map))))
+  (update (dbcon) user-account-table {:active true} (where [[= :user_id (:user_id user-map)]])))
 
 (defn get-registration-key [registration-key]
-  (first (select (dbcon) user-account-registration-table (where :registration_key registration-key))))
+  (first (select (dbcon) user-account-registration-table (where [[= :registration_key registration-key]]))))
 
 (defn delete-activation-key [user-map]
-  (delete (dbcon) user-account-registration-table (where :registration_key (:registration_key user-map))))
+  (delete (dbcon) user-account-registration-table (where [[= :registration_key (:registration_key user-map)]])))
 
 (defn activate-account [registration-key]
   (let [registration-request (get-registration-key registration-key)]
@@ -221,7 +221,7 @@
 
 (defn reset-password [form]
   (let [user-id (:user_id (first (select (dbcon) password-reset-table 
-                                         (where :password_reset_key (crypto/str-uuid (:reset_key form))))))
+                                         (where [[= :password_reset_key (crypto/str-uuid (:reset_key form))]]))))
         password (:password form)]
   (if (= (:password form) (:confirm_password form))
     (do 
@@ -231,8 +231,7 @@
 
 
 (defn userid-token [auth-token]
-  (let [session (first (select (dbcon) user-session-table (where :auth_token auth-token)))]
+  (let [session (first (select (dbcon) user-session-table (where [[= :auth_token auth-token]])))]
     (if (nil? session)
       nil
-      (:user_id session)
-    )))
+      (:user_id session))))

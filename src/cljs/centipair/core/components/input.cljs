@@ -52,6 +52,14 @@
           false)))))
 
 
+(defn append-error [errors field]
+  (let [key (keyword (:id @field))]
+    (if (not (nil? (key errors)))
+      (swap! field assoc
+             :message (first (key errors))
+             :class-name style/bootstrap-input-container-class-error))))
+
+
 (defn valid-form? [form-fields]
   (apply = true (doall (map valid-field? form-fields))))
 
